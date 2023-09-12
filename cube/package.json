@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.1",
     "@react-three/drei": "^9.83.9",
     "@react-three/fiber": "^8.14.1",
+    "@types/three": "^0.156.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.156.1"
