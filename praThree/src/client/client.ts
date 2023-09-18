@@ -1,20 +1,36 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-const scene = new THREE.Scene()
-
-const camera = new THREE.PerspectiveCamera(
+const scene = new THREE.Scene() 
+//scene.background = new THREE.Color(0x000000) // 빨간 배경색 0xff0000 ,초록색 0x00ff00
+const camera = new THREE.PerspectiveCamera( 
     75,
-    window.innerWidth / window.innerHeight,
+   1,//window.innerWidth/ window.innerHeight, //캠퍼스 크기를 바꾸려면 횡종비 업데이트와 카메라도 일치시키기위해여기도 조정이 필요함
     0.1,
     1000
 )
 camera.position.z = 2
 
-const renderer = new THREE.WebGLRenderer()
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
+const canvas1 = document.getElementById("c1") as HTMLCanvasElement
+const canvas2 = document.getElementById("c2") as HTMLCanvasElement
+const canvas3 = document.getElementById("c3") as HTMLCanvasElement //html 파일내 아이디 c3 인 캠퍼스와 연결
+const canvas4 = document.getElementById("c4") as HTMLCanvasElement
 
-new OrbitControls(camera, renderer.domElement) //OrbitControls= 마우스로 객체와 상호작용(줌인/아웃,오른쪽마우스클릭+드래그 등)
+const renderer1 = new THREE.WebGLRenderer({canvas:canvas1})
+renderer1.setSize(200, 200) 
+const renderer2 = new THREE.WebGLRenderer({canvas:canvas2})
+renderer2.setSize(200, 200) 
+const renderer3 = new THREE.WebGLRenderer({canvas:canvas3})
+renderer3.setSize(200, 200) 
+const renderer4 = new THREE.WebGLRenderer({canvas:canvas4})
+renderer4.setSize(200, 200) 
+
+//const renderer = new THREE.WebGLRenderer()
+//renderer.setSize(window.innerWidth, window.innerHeight) //캠퍼스의 크기를 창의 높이와 크기로 지정
+
+
+//document.body.appendChild(renderer1.domElement) // 자동 html 파일에 <canvas> 태그 생성
+
+new OrbitControls(camera, renderer1.domElement) //OrbitControls= 마우스로 객체와 상호작용(줌인/아웃,오른쪽마우스클릭+드래그 등)
 
 
 const geometry = new THREE.BoxGeometry()
@@ -26,13 +42,13 @@ const material = new THREE.MeshBasicMaterial({
 const cube = new THREE.Mesh(geometry, material)
 scene.add(cube)
 
-window.addEventListener('resize', onWindowResize, false)
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    render()
-}
+// window.addEventListener('resize', onWindowResize, false) //브라우저창에 맞게 화면 조절
+// function onWindowResize() {   //29~ 35줄을 주석처리하면  새로고침이후 브라우저창을 조절해도 브라우저창에 맞게 캠퍼스가 조절하지 않고 고정된다.
+//     camera.aspect = window.innerWidth / window.innerHeight  
+//     camera.updateProjectionMatrix()
+//     renderer.setSize(window.innerWidth, window.innerHeight)
+//     render()
+// }
 
 function animate() {
     requestAnimationFrame(animate)
@@ -44,7 +60,10 @@ function animate() {
 }
 
 function render() {
-    renderer.render(scene, camera)
+    renderer1.render(scene, camera)
+    renderer2.render(scene, camera)
+    renderer3.render(scene, camera)
+    renderer4.render(scene, camera)
 }
 
 animate()
