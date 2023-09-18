@@ -2,13 +2,18 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 const scene = new THREE.Scene() 
 //scene.background = new THREE.Color(0x000000) // 빨간 배경색 0xff0000 ,초록색 0x00ff00
-const camera = new THREE.PerspectiveCamera( 
-    75,
+const camera = new THREE.PerspectiveCamera( //원근 카메라PerspectiveCamera: 원근깊이가 있는 카메라입니다. Frustum 형태가 잘린 피라미드처럼 보입니다.
+    75,//1번째 인자= 시야각Field of view
    1,//window.innerWidth/ window.innerHeight, //캠퍼스 크기를 바꾸려면 횡종비 업데이트와 카메라도 일치시키기위해여기도 조정이 필요함
-    0.1,
-    1000
+   //2번째 인자= 종횡비
+   0.1,
+    10
+)
+const camera2 = new THREE.OrthographicCamera( //직교 카메라 :평평하게 보입니다.
+   -2,2,2,-2
 )
 camera.position.z = 2
+camera2.position.z = 2
 
 const canvas1 = document.getElementById("c1") as HTMLCanvasElement
 const canvas2 = document.getElementById("c2") as HTMLCanvasElement
@@ -61,8 +66,8 @@ function animate() {
 
 function render() {
     renderer1.render(scene, camera)
-    renderer2.render(scene, camera)
-    renderer3.render(scene, camera)
+    renderer2.render(scene, camera2)
+    renderer3.render(scene, camera) //주석처리하면  화면이 안보입니다.
     renderer4.render(scene, camera)
 }
 
