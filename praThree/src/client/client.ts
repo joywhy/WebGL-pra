@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 const scene = new THREE.Scene()
 
 const camera = new THREE.PerspectiveCamera(
@@ -13,6 +13,9 @@ camera.position.z = 2
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
+
+new OrbitControls(camera, renderer.domElement) //OrbitControls= 마우스로 객체와 상호작용(줌인/아웃,오른쪽마우스클릭+드래그 등)
+
 
 const geometry = new THREE.BoxGeometry()
 const material = new THREE.MeshBasicMaterial({
@@ -33,9 +36,9 @@ function onWindowResize() {
 
 function animate() {
     requestAnimationFrame(animate)
-
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
+ 
+    cube.rotation.x += 0.01  // x 축으로 회전
+     cube.rotation.y += 0.01 // x 축으로 회전
 
     render()
 }
