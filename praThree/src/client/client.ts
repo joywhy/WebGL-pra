@@ -7,13 +7,22 @@ const camera = new THREE.PerspectiveCamera( //원근 카메라PerspectiveCamera:
    1,//window.innerWidth/ window.innerHeight, //캠퍼스 크기를 바꾸려면 횡종비 업데이트와 카메라도 일치시키기위해여기도 조정이 필요함
    //2번째 인자= 종횡비
    0.1,
+   //3번째 인자 Near and far: 카메라가 얼마나 멀리까지 볼 수 있는지, 그리고 얼마나 가까이에 있는 물체까지 볼 수 있는지를 결정해주는 인자
     10
 )
 const camera2 = new THREE.OrthographicCamera( //직교 카메라 :평평하게 보입니다.
    -2,2,2,-2
 )
+
+const camera3 = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10)
+const camera4 = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10)
+
 camera.position.z = 2
-camera2.position.z = 2
+camera2.position.y = 1 // 카메라가 위에서 아래로 000위치에 있는 3d 정육각형을 바라봄
+camera2.lookAt(new THREE.Vector3(0, 0, 0))
+camera3.position.z = 1
+camera4.position.x = 1
+camera4.lookAt(new THREE.Vector3(0, 0, 0))
 
 const canvas1 = document.getElementById("c1") as HTMLCanvasElement
 const canvas2 = document.getElementById("c2") as HTMLCanvasElement
@@ -67,8 +76,8 @@ function animate() {
 function render() {
     renderer1.render(scene, camera)
     renderer2.render(scene, camera2)
-    renderer3.render(scene, camera) //주석처리하면  화면이 안보입니다.
-    renderer4.render(scene, camera)
+    renderer3.render(scene, camera3) //주석처리하면  화면이 안보입니다.
+    renderer4.render(scene, camera4)
 }
 
 animate()
